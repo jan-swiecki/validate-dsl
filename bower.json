@@ -7,6 +7,7 @@
       "email": "jan.swiecki@gmail.com"
     }
   ],
+  "license": "MIT",
   "main": ["dist/validate-dsl.js"],
   "ignore": [
     "src",
