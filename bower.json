@@ -9,7 +9,8 @@
   ],
   "license": "MIT",
   "main": [
-    "dist/validate-dsl.js"
+    "dist/validate-dsl.js",
+    "lib/esrefactor.js"
   ],
   "ignore": [
     "src",

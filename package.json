@@ -9,7 +9,9 @@
   "devDependencies": {
     "chai": "^1.9.1",
     "chai-jquery": "^1.2.3",
+    "esrefactor": "^0.1.0",
     "gulp": "^3.8.7",
+    "gulp-browserify": "^0.5.1",
     "gulp-concat": "^2.3.4",
     "gulp-jshint": "^1.8.4",
     "gulp-plumber": "^0.6.6",

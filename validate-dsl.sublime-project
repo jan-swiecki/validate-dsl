@@ -2,7 +2,11 @@
 	"folders":
 	[
 		{
-			"path": "/D/dev/projects/validate-dsl"
+			"path": "/D/dev/projects/validate-dsl",
+			"folder_exclude_patterns":
+			[
+				"src/esrefactor"
+			]
 		}
 	]
 }

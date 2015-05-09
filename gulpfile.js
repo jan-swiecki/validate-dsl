@@ -7,6 +7,7 @@ var path = require('path');
 var plumber = require('gulp-plumber');
 var runSequence = require('run-sequence');
 var jshint = require('gulp-jshint');
+var browserify = require('gulp-browserify');
 
 /**
  * File patterns
@@ -48,7 +49,7 @@ gulp.task('build', function() {
  */
 gulp.task('process-all', function (done) {
   // runSequence('jshint', 'test-src', 'build', done);
-  runSequence('test-src', 'build', done);
+  runSequence('browserify', 'test-src', 'build', done);
 });
 
 /**
@@ -103,4 +104,15 @@ gulp.task('test-dist-minified', function (done) {
 
 gulp.task('default', function () {
   runSequence('process-all', 'watch');
+});
+
+// Basic usage
+gulp.task('browserify', function() {
+    // Single entry point to browserify
+    gulp.src('browserify/**/*.node.js')
+        .pipe(browserify({
+          insertGlobals : true,
+          debug : !gulp.env.production
+        }))
+        .pipe(gulp.dest('./src'))
 });
