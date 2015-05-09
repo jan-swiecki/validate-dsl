@@ -30,8 +30,6 @@ module.exports = function(config) {
       'bower/lodash/lodash.js',
       'bower/moment/moment.js',
       'bower/esprima/esprima.js',
-      'bower/estraverse/estraverse.js',
-      'bower/escope/src/index.js',
       'src/**/*.module.js',
       'src/**/*.js',
       'test/unit/**/*.js'
@@ -40,7 +38,6 @@ module.exports = function(config) {
 
     // list of files to exclude
     exclude: [
-      'src/**/*.node.js'
     ],
 
 

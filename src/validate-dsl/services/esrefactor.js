@@ -7,6 +7,6 @@
  * # esrefactor
  * Service in the validateDsl.
  */
-angular.module('validateDsl').service('esrefactor', function() {
-	return esrefactor;
-});
+// angular.module('validateDsl').service('esrefactor', function() {
+// 	return esrefactor;
+// });

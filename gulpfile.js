@@ -18,6 +18,7 @@ var rootDirectory = path.resolve('./');
 
 // Source directory for build process
 var sourceDirectory = path.join(rootDirectory, './src');
+var testDirectory = path.join(rootDirectory, './test/unit');
 
 var sourceFiles = [
 
@@ -26,6 +27,10 @@ var sourceFiles = [
 
   // Then add all JavaScript files
   path.join(sourceDirectory, '/**/*.js')
+];
+
+var testFiles = [
+  path.join(testDirectory, '/**/*.js'),
 ];
 
 var lintFiles = [
@@ -58,7 +63,7 @@ gulp.task('process-all', function (done) {
 gulp.task('watch', function () {
 
   // Watch JavaScript files
-  gulp.watch(sourceFiles, ['process-all']);
+  gulp.watch(sourceFiles.concat(testFiles), ['process-all']);
 });
 
 /**
