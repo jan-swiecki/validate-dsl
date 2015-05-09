@@ -1,0 +1,29 @@
+{
+  "generator-angularjs-library": {
+    "props": {
+      "author": {
+        "name": "Jan Święcki",
+        "email": "jan.swiecki@gmail.com"
+      },
+      "libraryName": {
+        "original": "validate-dsl",
+        "camelized": "validateDsl",
+        "dasherized": "validate-dsl",
+        "slugified": "validate-dsl",
+        "parts": [
+          "validate",
+          "dsl"
+        ]
+      },
+      "includeModuleDirectives": false,
+      "includeModuleFilters": false,
+      "includeModuleServices": true,
+      "includeAngularModuleResource": false,
+      "includeAngularModuleCookies": false,
+      "includeAngularModuleSanitize": false,
+      "librarySrcDirectory": "src/validate-dsl",
+      "libraryUnitTestDirectory": "test/unit/validate-dsl",
+      "libraryUnitE2eDirectory": "test/e2e/validate-dsl"
+    }
+  }
+}
