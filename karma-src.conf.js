@@ -27,6 +27,10 @@ module.exports = function(config) {
     files: [
       'bower/angular/angular.js',
       'bower/angular-mocks/angular-mocks.js',
+      'bower/lodash/lodash.js',
+      'bower/moment/moment.js',
+      'bower/esprima/esprima.js',
+      'bower/momentjs/moment.js',
       'src/**/*.module.js',
       'src/**/*.js',
       'test/unit/**/*.js'
