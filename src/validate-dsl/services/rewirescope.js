@@ -50,7 +50,7 @@ angular.module('validateDsl').service('RewireScope', function(esrefactor, _) {
 						var id = ctx.identify(index);
 						if(id) {
 							var name = _.result(id, "identifier.name");
-							if(_.isNull(id.declaration) && name) {
+							if(name === key && _.isNull(id.declaration) && name) {
 								var newName = getNewName(newScope, key, name);
 								newCode = ctx.rename(id, prefix+"."+name);
 								ctx = new esrefactor.Context(newCode);
