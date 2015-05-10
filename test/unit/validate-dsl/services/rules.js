@@ -16,15 +16,15 @@ describe('Service: Rules', function () {
   });
 
   it('isUndefined', function () {
-    (Rules.isUndefined.evaluate(undefined)).should.equal(true);
-    (Rules.isUndefined.evaluate(null)).should.equal(false);
-    (Rules.isUndefined.evaluate("x")).should.equal(false);
+    Rules.isUndefined.evaluate(undefined).should.equal(true);
+    Rules.isUndefined.evaluate(null).should.equal(false);
+    Rules.isUndefined.evaluate("x").should.equal(false);
   });
 
   it('isNullOrUndefined', function () {
-    (Rules.isNullOrUndefined.evaluate(undefined)).should.equal(true);
-    (Rules.isNullOrUndefined.evaluate(null)).should.equal(true);
-    (Rules.isNullOrUndefined.evaluate("x")).should.equal(false);
+    Rules.isNullOrUndefined.evaluate(undefined).should.equal(true);
+    Rules.isNullOrUndefined.evaluate(null).should.equal(true);
+    Rules.isNullOrUndefined.evaluate("x").should.equal(false);
   });
 
 });

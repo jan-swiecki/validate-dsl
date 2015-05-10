@@ -57,23 +57,7 @@ describe('Service: RewireScope', function () {
     indices.should.have.property('length', 1);
   });
 
-  // it('should parse True', function() {
-  //   var fn = function(){
-  //     getNullRule(context.isNullable, isDate.then(True).otherwise(False("$0 is not date")));
-  //   };
-
-  //   var code = RewireScope.wrapFn(fn.toString());
-  //   var ctx = new esrefactor.Context(code);
-
-  //   console.log(code);
-
-  //   var id = ctx.identify(86);
-
-  //   // console.log("-------->", id);
-  //   // console.log("-------->", ctx.rename(id, "ASD"));
-  // });
-
-  it('should rewire scope', function() {
+  it('should rename properly', function() {
     var fn = function(){
       getNullRule(context.isNullable, isDate.then(True).otherwise(False("$0 is not date")));
     };
@@ -90,7 +74,7 @@ describe('Service: RewireScope', function () {
       getNullRule: ""
     };
 
-    var fnNew = RewireScope.rewire(fn, "Rules", newScope);
+    var fnNew = RewireScope.rewire(fn, {Rules: newScope});
 
     var ast = esprima.parse(RewireScope.wrapFn(fnNew.toString()));
     var targetAst = esprima.parse(RewireScope.wrapFn(targetFn.toString()));
@@ -98,8 +82,53 @@ describe('Service: RewireScope', function () {
     _.isEqual(ast, targetAst).should.equal(true);
   });
 
-  function deepEqual(obj1, obj2) {
-    return JSON.stringify(obj1) === JSON.stringify(obj2);
-  }
+  it('should rewire properly', function() {
+    var fn = function(){
+      Rule(true)
+        .then(
+          isUndefined
+            .then(True)
+            .otherwise(isString.then(True).otherwise(False("$0 is not string")))
+        ).otherwise(
+          isUndefined
+            .then(False("$0 is null"))
+            .otherwise(isString.then(True).otherwise(False("$0 is not string")))
+        );
+    };
 
+    var targetFn = function() {
+      Rule.Rule(true)
+        .then(
+          Rules.isUndefined
+            .then(Rules.True)
+            .otherwise(Rules.isString.then(Rules.True).otherwise(Rules.False("$0 is not string")))
+        ).otherwise(
+          Rules.isUndefined
+            .then(Rules.False("$0 is null"))
+            .otherwise(Rules.isString.then(Rules.True).otherwise(Rules.False("$0 is not string")))
+        );
+    };
+
+    // var targetFnStr = "("+targetFn+")(Rules, Rule)";
+
+    var key = "Rules";
+    var newScope = {
+      isDate: "",
+      isString: "",
+      isUndefined: "",
+      True: "",
+      False: "",
+      getNullRule: ""
+    };
+
+    var fnNew = RewireScope.rewire(fn, {Rules: newScope, Rule: {Rule: {}}});
+
+    var fnNewStr = RewireScope.wrapFn(fnNew.toString());
+    var targetFnStr = RewireScope.wrapFn(targetFn.toString());
+
+    var ast = esprima.parse(fnNewStr);
+    var targetAst = esprima.parse(targetFnStr);
+
+    _.isEqual(ast, targetAst).should.equal(true);
+  });
 });
