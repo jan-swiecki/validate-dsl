@@ -14,7 +14,11 @@ angular.module('validateDsl').service('ValidateDSL', function($q, _, Rule, Rules
 			context = context || {};
 
 			// re-wire scope to current scope
-			contextCallback = RewireScope.rewire(contextCallback, {Rules: Rules, Rule: {Rule: Rule}});
+			contextCallback = RewireScope.rewire(contextCallback, {
+				Rules: Rules,
+				Rule: Rule,
+				context: context
+			});
 
 			return contextCallback();
 		}

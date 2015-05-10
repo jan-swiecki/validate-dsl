@@ -131,4 +131,34 @@ describe('Service: RewireScope', function () {
 
     _.isEqual(ast, targetAst).should.equal(true);
   });
+
+  it('should rewire properly 2', function() {
+    var fn = function(){
+      getNullRule(context.isNullable, isDate.then(True).otherwise(False("$0 is not date")));
+    };
+
+    var targetFn = function() {
+      Rules.getNullRule(context.isNullable, Rules.isDate.then(Rules.True).otherwise(Rules.False("$0 is not date")));
+    };
+
+    var newScope = {
+      isDate: "",
+      isString: "",
+      isUndefined: "",
+      True: "",
+      False: "",
+      getNullRule: ""
+    };
+
+    var fnNew = RewireScope.rewire(fn, {Rules: newScope, Rule: {}});
+
+    var fnNewStr = RewireScope.wrapFn(fnNew.toString());
+    var targetFnStr = RewireScope.wrapFn(targetFn.toString());
+
+    var ast = esprima.parse(fnNewStr);
+    var targetAst = esprima.parse(targetFnStr);
+
+    _.isEqual(ast, targetAst).should.equal(true);
+  });
+
 });
