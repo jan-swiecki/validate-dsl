@@ -97,7 +97,7 @@ describe('Service: RewireScope', function () {
     };
 
     var targetFn = function() {
-      Rule.Rule(true)
+      Rule(true)
         .then(
           Rules.isUndefined
             .then(Rules.True)
@@ -121,7 +121,7 @@ describe('Service: RewireScope', function () {
       getNullRule: ""
     };
 
-    var fnNew = RewireScope.rewire(fn, {Rules: newScope, Rule: {Rule: {}}});
+    var fnNew = RewireScope.rewire(fn, {Rules: newScope, Rule: {}});
 
     var fnNewStr = RewireScope.wrapFn(fnNew.toString());
     var targetFnStr = RewireScope.wrapFn(targetFn.toString());

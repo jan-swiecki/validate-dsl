@@ -18,9 +18,7 @@ angular.module('validateDsl').service('RewireScope', function(esrefactor, _) {
 	RewireScope.rewire = function(callback, newScopeMapper) {
 		var newCallback = RewireScope.rename(callback, newScopeMapper);
 		newCallback = RewireScope.wrapFn(newCallback.toString(), _.keys(newScopeMapper), "newScopeMapper");
-		// console.log("newCallback ====>", newCallback);
 		var e = eval(newCallback);
-		// console.log("newCallback EVAL ====>", e());
 		return e;
 	};
 
@@ -44,6 +42,7 @@ angular.module('validateDsl').service('RewireScope', function(esrefactor, _) {
 			var newCode = code;
 
 			_.each(keys, function(key){
+				var value = newScope[key];
 				var indices = RewireScope.getIndices(newCode, key);
 				for(var k in indices) {
 					if(indices.hasOwnProperty(k)) {
@@ -52,7 +51,7 @@ angular.module('validateDsl').service('RewireScope', function(esrefactor, _) {
 						if(id) {
 							var name = _.result(id, "identifier.name");
 							if(_.isNull(id.declaration) && name) {
-								// newCode = ctx.rename(id, key+"."+name);
+								var newName = getNewName(newScope, key, name);
 								newCode = ctx.rename(id, prefix+"."+name);
 								ctx = new esrefactor.Context(newCode);
 								break;
@@ -61,6 +60,15 @@ angular.module('validateDsl').service('RewireScope', function(esrefactor, _) {
 					}
 				}
 			});
+
+			function getNewName(newScope, key, currentName) {
+				var value = newScope[key];
+				if(_.isPlainObject(value)) {
+					return key+"."+currentName;
+				} else {
+					return currentName;
+				}
+			}
 
 			return newCode;
 		}
